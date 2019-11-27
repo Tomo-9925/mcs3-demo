@@ -1,0 +1,54 @@
+<aside class="global-sp-menu">
+  <div class="global-sp-nav">
+    <nav>
+      <ul>
+        {% if '/' == request.path %}
+          <li>
+            <a href="#about" aria-label="ABOUT">
+              <div class="global-sp-nav-title">ABOUT</div>
+              <div class="global-sp-nav-detail">MCSとは？</div>
+            </a>
+          </li>
+          <li>
+            <a href="#news" aria-label="NEWS">
+              <div class="global-sp-nav-title">NEWS</div>
+              <div class="global-sp-nav-detail">最新情報</div>
+            </a>
+          </li>
+          <li>
+            <a href="#works" aria-label="WORKS">
+              <div class="global-sp-nav-title">WORKS</div>
+              <div class="global-sp-nav-detail">制作実績</div>
+            </a>
+          </li>
+        {% else %}
+          <li>
+            <a href="{% url 'main:index' %}#about" aria-label="ABOUT">
+              <div class="global-sp-nav-title">ABOUT</div>
+              <div class="global-sp-nav-detail">MCSとは？</div>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'main:news_list' %}" aria-label="NEWS">
+              <div class="global-sp-nav-title">NEWS</div>
+              <div class="global-sp-nav-detail">最新情報</div>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'main:work_redirect' %}" aria-label="WORKS">
+              <div class="global-sp-nav-title">WORKS</div>
+              <div class="global-sp-nav-detail">制作実績</div>
+            </a>
+          </li>
+        {% endif %}
+      </ul>
+    </nav>
+  </div>
+  <div class="global-sp-menu-icon-outer">
+    <ul>
+      <li><a href="mailto:mcs.kutc@gmail.com" aria-label="メール"><i class="far fa-envelope"></i></a></li>
+      <li><a href="https://twitter.com/mcs_kutc/" aria-label="Twitter"><i class="fab fa-twitter"></i></a></li>
+      <li><a href="https://www.facebook.com/mcs.kutc/" aria-label="Facebook"><i class="fab fa-facebook"></i></a></li>
+    </ul>
+  </div>
+</aside>

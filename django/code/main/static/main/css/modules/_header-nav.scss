@@ -1,0 +1,60 @@
+.global-header-outer {
+  background-color: $black;
+}
+
+.global-header-outer .global-header-nav {
+  position: relative;
+}
+
+.global-header-nav {
+  @include link-normalize($white);
+  @include underline-animation(".underline");
+  font-weight: bold;
+  position: absolute;
+  width: 100%;
+  z-index: 2;
+  ul {
+    display: flex;
+    position: relative;
+    margin: 0 auto;
+    padding: 2rem 0;
+    list-style-type: none;
+    align-items: center;
+    justify-content: space-between;
+    @include tablet {
+      left: -5%;
+      width: 110%;
+      padding: 2.5rem 0;
+    }
+  }
+  li {
+    display: none;
+    margin: 0;
+    letter-spacing: 0.12em;
+    @include tablet {
+      display: block;
+      margin-left: 7rem;
+    }
+  }
+  img {
+    height: 5rem;
+  }
+  .global-header-nav-logo {
+    display: block;
+    margin-right: auto;
+    &::after {
+      display: none
+    }
+    @include tablet {
+      margin-left: 0;
+    }
+  }
+  .global-header-nav-hamburger {
+    display: block;
+    height: 4rem;
+    @include tablet {display: none;}
+  }
+  button {
+    margin: 0;
+  }
+}

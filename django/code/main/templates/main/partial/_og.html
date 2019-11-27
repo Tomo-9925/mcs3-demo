@@ -1,0 +1,23 @@
+  {% load static %}
+
+  <meta property="og:site_name" content="Media Creative Supporter (MCS) 公式サイト"/>
+  {% if title %}
+  <meta property="og:title" content="{{ title }} | Media Creative Supporter (MCS)"/>
+  {% else %}
+  <meta property="og:title" content="Media Creative Supporter (MCS) 公式サイト | 関西大学 高槻キャンパス 総合情報学部 公認 映像ボランティア団体"/>
+  {% endif %}
+  {% if description %}
+  <meta property="og:description" content="{{ description }}"/>
+  {% else %}
+  <meta property="og:description" content="Media Creative Supporter(MCS)は、関西大学高槻キャンパス総合情報学部にて活動しています。総合情報学部におけるコンテンツの制作サポートから創造・自己発信までできるスタッフの集合体を目指し、日々活動しているボランティア団体です。"/>
+  {% endif %}
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://{{ request.get_host }}{{ request.path }}"/>
+  {% if image %}
+    <meta property="og:image" content="https://{{ request.get_host }}{{ image }}"/>
+  {% else %}
+    <meta property="og:image" content="https://{{ request.get_host }}{% static 'main/img/logo_large.png' %}"/>
+  {% endif %}
+  <meta property="og:locale" content="ja_JP" />
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site" content="@MCS_kutc"/>

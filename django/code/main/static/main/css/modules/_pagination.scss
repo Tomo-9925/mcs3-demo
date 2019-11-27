@@ -1,0 +1,36 @@
+.global-pagination {
+  @include underline-animation("span", $black);
+  @include change-color-animation;
+  margin-bottom: 3rem;
+  font-size: 2rem;
+  @include tablet {
+    font-size: 2.5rem;
+    margin: 4rem 0 8rem 0;
+  }
+  ul {
+    @include flex-row;
+    margin: 0 auto;
+    width: 95%;
+    justify-content: space-between;
+    list-style-type: none;
+  }
+  li {
+    margin: 0 1.25rem;
+    &:first-child {
+      margin: 0 auto;
+    }
+    &:last-child {
+      margin: 0 auto;
+    }
+  }
+  img {
+    max-height: 1.5rem;
+    @include tablet {
+      max-height: 2rem;
+    }
+  }
+}
+
+.global-pagination .disabled {
+  visibility: hidden;
+}

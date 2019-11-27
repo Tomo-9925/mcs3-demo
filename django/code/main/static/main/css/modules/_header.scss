@@ -1,0 +1,32 @@
+/*
+  global page title
+*/
+
+.global-page-title {
+  @include flex-row;
+  font-weight: bold;;
+  margin: 2rem 0;
+}
+
+.global-page-title-name {
+  margin: 0;
+  padding:  0.25em 3rem 0.25em 0;
+  line-height: 1.25 !important;
+  font-size: 3rem;
+  border-right: solid 2px $black;
+  letter-spacing: 0.1em;
+  @include tablet {
+    padding:  0.5em 4rem 0.5em 0;
+    font-size: 3.5rem;
+  }
+}
+
+.global-page-title-description {
+  padding-left: 3rem;
+  font-size: 2.5rem;
+  letter-spacing: 0.07em;
+  @include tablet {
+    padding-left: 4rem;
+    font-size: 3rem;
+  }
+}

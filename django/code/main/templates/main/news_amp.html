@@ -1,0 +1,321 @@
+{% load static %}
+{% load bleach_tags %}
+{% load spaceless_json %}
+
+<!doctype html>
+<html amp lang="ja-jp">
+  <head>
+    <meta charset="utf-8">
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <title>{{ news.title }} | Media Creative Supporter (MCS)</title>
+    <meta name="author" content="Media Creative Supporter"/>
+    <meta name="copyright" content="(c) 2019 Media Creative Supporter"/>
+    {% if description %}
+    <meta name="description" content="{{ description }}"/>
+    {% else %}
+    <meta name="description" content="Media Creative Supporter(MCS)は、関西大学高槻キャンパス総合情報学部にて活動しています。総合情報学部におけるコンテンツの制作サポートから創造・自己発信までできるスタッフの集合体を目指し、日々活動しているボランティア団体です。"/>
+    {% endif %}
+    {% if image %}
+      <meta name="thumbnail" content="https://{{ request.get_host }}{{ image }}"/>
+    {% else %}
+      <meta name="thumbnail" content="https://{{ request.get_host }}{% static 'main/img/logo_large.png' %}"/>
+    {% endif %}
+    <meta name="keywords" content="MCS,MediaCreativeSupporter,Media,Creative,Supporter,メディアクリエイティブサポーター,関西大学,関大,総合情報,総情,kutc,映像,映画,">
+    <link rel="canonical" href="https://{{ request.get_host }}{% url 'main:news_detail' news.permalink %}">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    {# OGP #}
+    {% include 'main/partial/_og.html' %}
+
+
+    {# favicon #}
+    {% include 'main/partial/_favicon.html' %}
+
+    {# Bing Web Master #}
+    <meta name="msvalidate.01" content="114527A49AA3E946CB203006EACA21EE" />
+
+    {# Json+ld #}
+    {% include 'main/partial/_json-ld-website.html' %}
+    {% include 'main/partial/_json-ld-news.html' %}
+
+    {# CSS #}
+    {% spaceless %}
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+
+    <style amp-custom>
+      body {
+        line-height: 1.75;
+        letter-spacing: 0.05em;
+        font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue","Hiragino Kaku Gothic ProN","ヒラギノ角ゴ ProN W3","游ゴシック Medium",YuGothic,YuGothicM,"Segoe UI",メイリオ,Meiryo,sans-serif;
+      }
+      img {
+        object-fit: contain;
+      }
+      .global-header {
+        padding: 1.25em 0;
+        background-color: black;
+      }
+      .container {
+        width: 100%;
+        padding: 0 20px;
+        box-sizing: border-box;
+      }
+      .global-breadcrumbs {
+        font-weight: bold;
+        font-size: 0.9em;
+        margin: 2.75em 0;
+      }
+      .global-breadcrumbs ol {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+      }
+      .global-breadcrumbs li {
+        margin: 0;
+        display: inline;
+      }
+      .global-breadcrumbs a, .global-breadcrumbs a:hover, .global-breadcrumbs a:visited {
+        text-decoration: none;
+        color: black;
+      }
+      .global-breadcrumbs li+li::before {
+        content: " ";
+        display: inline-block;
+        width: 0.75em;
+        margin: 0 0.5em 0.25em 0.5em;
+        border-bottom: solid 0.15em #000;
+      }
+      .global-page-title {
+        display: flex;
+        align-items: center;
+        font-weight: bold;
+        margin: 1.75em 0;
+      }
+      .global-page-title-name {
+        margin: 0;
+        padding-right: 0.75em;
+        border-right: solid 2px #000;
+        font-size: 1.75em;
+        letter-spacing: 0.1em;
+      }
+      .global-page-title-description {
+        padding-left: 0.75em;
+        font-size: 1.5em;
+        letter-spacing: 0.07em;
+      }
+      .news-article {margin: 0 0 3em 0;}
+      .news-article time {
+        margin: 0;
+        font-weight: bold;
+        font-size: 1.25em;
+      }
+      h1 {font-size: 1.25em;}
+      h2 {
+        margin: 40px 0 25px 0;
+        font-size: 1.2em
+      }
+      h3 {
+        margin: 35px 0 25px 0;
+        font-size: 1.15em
+      }
+      h4, h5, h6 {
+        margin: 30px 0 25px 0;
+        font-size: 1.1em
+      }
+      .news-article a {color: #008CB4;}
+      .news-article a:visited {color: #44318F;}
+      .news-bti-btn {
+        margin: 2em 0 6em 0;
+      }
+      .news-article > * {
+        margin: 0 0 20px 0;
+      }
+      p {
+        line-height: 2.25;
+      }
+      ul {
+        list-style: circle inside
+      }
+      ol {
+        list-style: decimal inside;
+        padding-left: 0;
+        margin-top: 0
+      }
+      ul {
+        padding-left: 0;
+        margin-top: 0
+      }
+      ul ul, ul ol {
+        margin: 1.5em 0 1.5em 3em;
+        font-size: 90%
+      }
+      ol ol, ol ul {
+        margin: 1.5em 0 1.5em 3em;
+        font-size: 90%
+      }
+      li {
+        margin-bottom: 1rem
+      }
+      code {
+        padding: .2em .5em;
+        margin: 0 .2em;
+        font-size: 90%;
+        white-space: nowrap;
+        background: #fff;
+        border: 1px solid #F1F1F1;
+        border-radius: 4px;
+      }
+      pre > code {
+        display: block;
+        padding: 1rem 1.5rem;
+        white-space: pre
+      }
+      th, td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #F1F1F1
+      }
+      th:first-child, td:first-child {
+        padding-left: 0
+      }
+      th:last-child, td:last-child {
+        padding-right: 0
+      }
+      mark {
+        background: #ff0;
+        color: #000
+      }
+      .news-bti-btn {
+        text-decoration: none;
+        color: white;
+        font-weight: bold;
+        display: block;
+        padding: 0.75em 0;
+        width: 100%;
+        background-color: #000;
+        text-align: center;
+        letter-spacing: 0.12em;
+      }
+      .news-bti-btn a, .news-bti-btn a:hover, .news-bti-btn a:visited {
+        color: white;
+        text-decoration: none;
+      }
+      .news-bti-btn span {
+        padding-left: 1.5em;
+        position: relative;
+      }
+      .news-bti-btn span::before {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        margin-top: -0.75em;
+        content: "\f104";
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+      }
+      .global-footer {
+        color: white;
+        padding: 2em 0;
+        background-color: black;
+        text-align: center;
+      }
+      .global-footer ul {
+        display: flex;
+        align-items: center;
+        margin: 0 auto 0.5em auto;
+        padding: 0;
+        list-style-type: none;
+        width: 8em;
+        justify-content: space-between;
+        font-size: 1.75em;
+      }
+      .global-footer a, .global-footer a:hover, global-footer a:visited {
+        color: white;
+        text-decoration: none;
+      }
+      small {
+        font-weight: bold;
+        font-size: 0.75em;
+        letter-spacing: 0.1em;
+      }
+    </style>
+    {% endspaceless %}
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous"/>
+
+    {# Google Tag Manager #}
+    <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+  </head>
+  <body>
+    {# Google Tag Manager #}
+    <amp-analytics config="https://www.googletagmanager.com/amp.json?id=GTM-PVL5DFT&gtm.url=SOURCE_URL" data-credentials="include"></amp-analytics>
+    <header class="global-header">
+      <div class="container">
+        <a href="https://{{ request.get_host }}{% url 'main:index' %}">
+          <amp-img src="https://{{ request.get_host }}{% static 'main/img/logo_vertical.svg' %}" alt="Media Creative Supporter" height="3.25em" width="3.25em" />
+        </a>
+      </div>
+    </header>
+    <nav class="global-breadcrumbs">
+      <div class="container">
+        <ol>
+          <li>
+            <a href="{% url 'main:index' %}"><span>TOP</span></a>
+          </li>
+          <li>
+            <a href="{% url 'main:news_list' %}"><span>NEWS</span></a>
+          </li>
+          <li>
+            <span>{{ title }}</span>
+          </li>
+        </ol>
+      </div>
+      <script type="application/ld+json">{% spaceless_json %}
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "TOP",
+              "item": "https://{{ request.get_host }}/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "NEWS",
+              "item": "https://{{ request.get_host }}{% url 'main:news_list' %}"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "{{ title|bleach|escapejs }}",
+              "item": "https://{{ request.get_host }}{% url 'main:news_detail' news.pk %}"
+            }
+          ]
+        }
+      {% endspaceless_json %}</script>
+    </nav>
+    <main>
+      <div class="container">
+        <header class="global-page-title">
+          <div class="global-page-title-name">NEWS</div>
+          <div class="global-page-title-description">最新情報</div>
+        </header>
+        <article class="news-article">
+          <time datetime="{{ news.published_at|date:"Y-m-d" }}">{{ news.published_at|date:"Y.n.j" }}</time>
+          <h1>{{ news.title }}</h1>
+          {% if image %}
+          <div>
+            <amp-img src="{{ news.image_medium.url }}" srcset="{{ news.image_large.url }} 2x" alt="{{ news.title }}" layout="responsive" width="3" height="2"/>
+          </div>
+          {% endif %}
+          {{ news.formatted_markdown | bleach }}
+        </article>
+      </div>
+    </main>
+    {% include 'main/partial/_back-to-index.html' %}
+    {% include 'main/partial/_footer.html' %}
+  </body>
+</html>

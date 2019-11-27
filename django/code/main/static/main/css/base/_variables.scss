@@ -1,0 +1,43 @@
+// Variables
+//––––––––––––––––––––––––––––––––––––––––––––––––––
+
+// Breakpoints
+$bp-larger-than-mobile    : "min-width: 400px" !default;
+$bp-larger-than-phablet   : "min-width: 550px" !default;
+$bp-larger-than-tablet    : "min-width: 750px" !default;
+$bp-larger-than-desktop   : "min-width: 1000px" !default;
+$bp-larger-than-desktophd : "min-width: 1200px" !default;
+
+// Colors
+// from MCS logo guideline
+$red: #D70034 !default;
+$blue: #008CB4 !default;
+$purple: #44318F !default;
+$mcs-grey: #4D4948 !default;
+// from MCS3 design plan
+$white: #FFFFFF !default;
+$black: #000000 !default;
+$grey: #C3C3C3 !default;
+// from skeleton
+$light-grey: #F1F1F1 !default;
+$dark-grey: $mcs-grey !default;
+$primary-color: $blue !default;
+$secondary-color: lighten($dark-grey, 13.5%) !default;
+$border-color: $grey !default;
+$link-color: $blue !default;
+$font-color: $black !default;
+
+// Typography
+$font-family: -apple-system, BlinkMacSystemFont, "Noto Sans", "Noto Sans JP", "Noto Sans CJK JP", "Helvetica Neue", "Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ ProN W3", "Segoe UI", メイリオ, Meiryo, sans-serif;
+$font-family2: "Noto Serif", "Noto Serif JP", "Noto Serif CJK JP", "Times New Roman", "Hiragino Mincho ProN", "ヒラギノ明朝 ProN W3", 游明朝, "Yu Mincho", YuMincho, HGS明朝E, serif;
+
+//Grid Variables
+$container-width: 960px !default;
+$container-width-larger-than-mobile: 85% !default;
+$container-width-larger-than-phablet: 80% !default;
+$total-columns: 12 !default;
+$column-width: 100 / $total-columns !default; // calculates individual column width based off of # of columns
+$column-margin: 4% !default; // space between columns
+
+// Misc
+$global-radius: 4px !default;

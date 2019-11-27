@@ -1,0 +1,165 @@
+/*
+  flash animation
+*/
+
+@keyframes flash-scale-hover {
+  from {
+    opacity: 0;
+    transform:
+      scale(1.2)
+      rotate(0.001deg);
+  } to {
+    opacity: 1;
+    transform:
+      scale(1)
+      rotate(0.001deg);
+  }
+}
+
+/*
+  bg scroll
+*/
+
+@keyframes bgscroll_sp {
+  from {
+    transform: translateX(0);
+  } to {
+    transform: translateX(-146rem);
+  }
+}
+
+@keyframes bgscroll_pc {
+  from {
+    transform: translateX(0);
+  } to {
+    transform: translateX(-116.8rem);
+  }
+}
+
+/*
+  btn animations
+*/
+
+@keyframes btn-hover1 {
+  from {
+    opacity: 1;
+  } to {
+    opacity: 0;
+  }
+}
+
+@keyframes btn-hover2 {
+  from {
+    opacity: 0;
+    transform: scaleX(1.2);
+  } to {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+/*
+  view btn animations
+*/
+
+@keyframes view-txt {
+  0% {color: $black}
+  50% {color: $white}
+  100% {color: $black}
+}
+
+@keyframes view-line1 {
+  from {
+    transform-origin: left;
+    transform: scaleX(0);
+  } to {
+    transform-origin: left;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes view-line2 {
+  from {
+    transform-origin: right;
+    transform: scaleX(1);
+  } to {
+    transform-origin: right;
+    transform: scaleX(0);
+  }
+}
+
+/*
+  underline animation
+*/
+
+@mixin underline-animation($item: span, $color: $white) {
+  #{$item} {
+    position: relative;
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      left: 0;
+      bottom: -0.1rem;
+      width: 100%;
+      height: 2px;
+      background-color: $color;
+      transform-origin: right;
+      transform: scaleX(0);
+      transition: transform 0.15s ease-out;
+    }
+  }
+  a {
+    display: inline-block;
+  }
+  a:hover #{$item}::after {
+    transform-origin: left;
+    transform: scaleX(1);
+  }
+}
+
+/*
+  change color animation
+*/
+
+@mixin change-color-animation($color1: $grey, $color2: $black) {
+  a, a:link, a:active, a:visited {
+    @include font-normalize($color1);
+  }
+  a {
+    transition: color 0.15s ease-out;
+  }
+  a:hover {
+    color: $color2;
+  }
+}
+
+/*
+  flash animation
+*/
+
+@mixin flash-animation($item: span) {
+  a {
+    display: inline-block;
+    transition: all 0.25s ease-out 0s;
+    &:hover * {
+      animation: flash-scale-hover 0.5s ease-out alternate forwards;
+    }
+  }
+}
+
+/*
+  lazyload animation
+*/
+
+.lazyload, .lazyloading, .lazyloaded {
+  transition: opacity 0.15s ease-out 0s;
+}
+
+.lazyloading {
+  opacity: 0;
+}
+
+.lazyload, .lazyloaded {
+  opacity: 1;
+}

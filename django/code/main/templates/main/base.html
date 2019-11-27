@@ -1,0 +1,91 @@
+{% load static %}
+{% load sass_tags %}
+{% load compress %}
+
+<!DOCTYPE html>
+<html lang="ja-jp">
+<head>
+  {# meta #}
+  <meta charset="UTF-8"/>
+  <meta name="format-detection" content="telephone=no"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  {% if title %}
+  <title>{{ title }} | Media Creative Supporter (MCS)</title>
+  {% else %}
+  <title>Media Creative Supporter (MCS) 公式サイト | 関西大学 高槻キャンパス 総合情報学部 公認 映像ボランティア団体</title>
+  {% endif %}
+  <meta name="author" content="Media Creative Supporter"/>
+  <meta name="copyright" content="(c) 2019 Media Creative Supporter"/>
+  {% if description %}
+  <meta name="description" content="{{ description }}"/>
+  {% else %}
+  <meta name="description" content="Media Creative Supporter(MCS)は、関西大学高槻キャンパス総合情報学部にて活動しています。総合情報学部におけるコンテンツの制作サポートから創造・自己発信までできるスタッフの集合体を目指し、日々活動しているボランティア団体です。"/>
+  {% endif %}
+  {% if image %}
+    <meta name="thumbnail" content="https://{{ request.get_host }}{{ image }}"/>
+  {% else %}
+    <meta name="thumbnail" content="https://{{ request.get_host }}{% static 'main/img/logo_large.png' %}"/>
+  {% endif %}
+  <meta name="keywords" content="MCS,MediaCreativeSupporter,Media,Creative,Supporter,メディアクリエイティブサポーター,関西大学,関大,総合情報,総情,kutc,映像,映画,">
+  <link rel="canonical" href="https://{{ request.get_host }}{{ request.path }}"/>
+
+  {# favicon (RealFaviconGeneratorより作成．django向けに変更．) #}
+  {% include 'main/partial/_favicon.html' %}
+
+  {# OGP #}
+  {% include 'main/partial/_og.html' %}
+
+  {# Other Information #}
+  {% include 'main/partial/_json-ld-website.html' %}
+  {% block json %}
+  {% endblock json %}
+  {% block head %}
+  {% endblock head %}
+
+  {# CSS #}
+  {% compress css %}
+  <link rel="stylesheet" href="{% sass_src "main/css/main.scss" %}"/>
+  {% endcompress %}
+
+  {# JavaScript #}
+  {% compress js %}
+  <script src="{% static 'main/js/lazysizes.min.js' %}"></script>
+  {% endcompress %}
+
+  {# Bing Web Master #}
+  <meta name="msvalidate.01" content="114527A49AA3E946CB203006EACA21EE" />
+
+  {# Google Tag Manager #}
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-P8DV9QV');</script>
+</head>
+<body ontouchstart="">
+  {# Google Tag Manager #}
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P8DV9QV"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  {% block sidebar %}
+    {% include 'main/partial/_sidebar.html' %}
+  {% endblock sidebar %}
+  {% include 'main/partial/_sp-menu.html' %}
+  {% block header %}
+    {% include 'main/partial/_header.html' %}
+  {% endblock header %}
+  {% block breadcrumbs %}
+    {% include 'main/partial/_breadcrumbs.html' %}
+  {% endblock breadcrumbs %}
+  {% block main %}
+  {% endblock main %}
+  {% block footer_button %}
+    {% include 'main/partial/_back-to-top.html' %}
+  {% endblock footer_button %}
+  {% include 'main/partial/_footer.html' %}
+  {% compress js %}
+  <script src="{% static "main/js/main.js" %}"></script>
+  {% endcompress %}
+  {% block script %}
+  {% endblock script %}
+</body>
+</html>

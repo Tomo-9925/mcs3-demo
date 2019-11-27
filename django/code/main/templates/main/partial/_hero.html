@@ -1,0 +1,59 @@
+{% load static %}
+{% load compress %}
+
+<header class="hero">
+  <div class="hero-bg">
+    <img style="z-index: 1" src="{% static 'main/img/video_alt.jpg' %}" srcset="{% static 'main/img/video_alt_small.jpg' %} 1080h" alt="Media Creative Supporter Promotion Video"/>
+    <video style="z-index: 0" id="hero-video" autoplay loop muted playsinline></video>
+    {% compress js inline %}
+      <script>
+        var video = document.getElementById('hero-video');
+        var loadStart = Date.now()
+        window.addEventListener('load', function() {
+          var loadEnd = Date.now()
+          if(loadEnd-loadStart < 2000) {
+            var width = document.body.clientWidth;
+            var av1 = "video/webm; codecs=av01.0.05M.08";
+            if(width > 1920) {
+              if(video.canPlayType(av1) == "probably") {
+                video.src = "{% static 'main/video/index_large.webm' %}";
+                video.type = "video/webm"
+              } else {
+                video.src = "{% static 'main/video/index_medium.mp4' %}";
+                video.type = "video/mp4"
+              }
+            } else if(width > 750) {
+              if(video.canPlayType(av1) == "probably") {
+                video.src = "{% static 'main/video/index_medium.webm' %}";
+                video.type = "video/webm"
+              } else {
+                video.src = "{% static 'main/video/index_medium.mp4' %}";
+                video.type = "video/mp4"
+              }
+            } else {
+              if(video.canPlayType(av1) == "probably") {
+                video.src = "{% static 'main/video/index_default.webm' %}";
+                video.type = "video/webm"
+              } else {
+                video.src = "{% static 'main/video/index_default.mp4' %}";
+                video.type = "video/mp4"
+              }
+            }
+            video.addEventListener("playing", function() {
+              video.style.zIndex = 2;
+            });
+          }
+        }, false);
+      </script>
+    {% endcompress %}
+  </div>
+  {% include 'main/partial/_header-nav.html' %}
+  <div class="hero-logo-outer">
+    <h1>
+      <picture>
+        <source srcset="{% static 'main/img/logo_horizontal.svg' %}" media="(min-width: 750px)"/>
+        <img src="{% static 'main/img/logo_vertical.svg' %}" alt="Media Creative Supporter"/>
+      </picture>
+    </h1>
+  </div>
+</header>

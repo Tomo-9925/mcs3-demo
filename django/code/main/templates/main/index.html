@@ -1,0 +1,205 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% load sass_tags %}
+{% load compress %}
+
+{% block sidebar %}
+  {% include 'main/partial/_sidebar.html' with color="white" %}
+{% endblock sidebar %}
+
+{% block header %}
+  {% include 'main/partial/_hero.html' %}
+{% endblock header %}
+
+{% block breadcrumbs %}
+{% endblock breadcrumbs %}
+
+{% block head %}
+  {% compress css inline %}
+    <link rel="stylesheet" href="{% sass_src "main/css/index.scss" %}"/>
+  {% endcompress %}
+  <link rel="alternate" type="application/rss+xml" href="https://{{ request.get_host }}{% url 'main:news_feed' %}" title="Media Creative Supporter - NEWS" />
+  <link rel="alternate" type="application/rss+xml" href="https://{{ request.get_host }}{% url 'main:work_feed' %}" title="Media Creative Supporter - WORKS" />
+  <link href="https://fonts.googleapis.com/css?family=Noto+Serif+JP:400" rel="stylesheet">
+{% endblock head %}
+
+{% block main %}
+  <main>
+    <div class="index-section-outer" id="about">
+      <div class="container">
+        <article class="index-section-body">
+          <h2>ABOUT</h2>
+          <strong>人とは違うことをしよう。<br/>４年間も。その先も。</strong>
+          <p>
+            Media Creative Supporterは、関西大学公認の映像ボランティア団体です。<br>
+            スタジオイベントを催すほか、映像作品の自主制作を行い、学内外での活動を行なっています。
+          </p>
+        </article>
+      </div>
+      <div class="index-about-image-container"></div>
+    </div>
+    <div class="index-section-outer" id="news">
+      <div class="container">
+        <section class="index-section-body">
+          <h2>NEWS</h2>
+          <div class="index-news-container">
+            <div class="index-news-arrow">
+              <a href="" class="noscroll" aria-label="新しいニュース"><img src="{% static 'main/img/news_new.svg' %}" alt="new"/></a>
+            </div>
+            <div class="index-news-carousel">
+              <div class="index-news-item-container">
+                {% for news in news_list %}
+                  <div class="index-news-item">
+                    <a href="{% url 'main:news_detail' news.pk %}" aria-label="{{ news.title }}">
+                      <time datetime="{{ news.published_at|date:"Y-m-d" }}">{{ news.published_at|date:"Y.n.j" }}</time>
+                      <dl class="index-news-card">
+                        <dt>
+                          {% if news.image %}
+                            <img class="lazyload" src="{% static 'main/img/logo.png' %}" srcset="{% static 'main/img/logo_large.png' %} 2x" data-src="{{ news.image_medium.url }}" data-srcset="{{ news.image_large.url }} 2x" alt="{{ news.title }}"/>
+                          {% else %}
+                            <img src="{% static 'main/img/logo.png' %}" srcset="{% static 'main/img/logo_large.png' %} 2x" alt="{{ news.title }}"/>
+                          {% endif %}
+                        </dt>
+                        <dd><h3>{{ news.title }}</h3></dd>
+                      </dl>
+                    </a>
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+            <div class="index-news-arrow">
+              <a href="" class="noscroll" aria-label="古いニュース"><img src="{% static 'main/img/news_old.svg' %}" alt="old"/></a>
+            </div>
+          </div>
+          <div class="global-btn">
+            <a href="{% url 'main:news_list' %}" aria-label="その他のNEWS"><span>MORE</span></a>
+          </div>
+        </section>
+      </div>
+    </div>
+    <div class="index-section-outer" id="works">
+      <div class="container">
+        <section class="index-section-body">
+          <h2>WORKS</h2>
+          <div class="index-works-container">
+            {% for works in work_list %}
+              <div class="index-works-unit">
+                <div class="index-works-year-outer">
+                  <h3>{{ works.0.published_at.year }}</h3>
+                  <div class="index-vm-btn"><a href="{% url 'main:work_list' works.0.published_at.year %}" aria-label="{{ works.0.published_at.year }}年の作品を見る"><span>VIEW MORE</span></a></div>
+                </div>
+                <div class="index-works-item-container">
+                  {% for work in works %}
+                    <div class="index-works-item">
+                      <a href="{{ work.url }}" aria-label="{{ work.title }}">
+                        <dl>
+                          <dt>
+                            <img class="lazyload" src="{% static 'main/img/logo.png' %}" srcset="{% static 'main/img/logo_large.png' %} 2x" data-src="{{ work.thumbnail.mq }}" data-srcset="{{ work.thumbnail.hq }} 2x" alt="{{ work.title }}"/>
+                          </dt>
+                          <dd>
+                            <h4 class="index-works-video-title">{{ work.title }}</h4>
+                            <time datetime="{{ work.published_at|date:"Y-m-d" }}">{{ work.published_at|date:"Y.n.j" }}</time>
+                          </dd>
+                        </dl>
+                      </a>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+          <div class="global-btn"><a href="{% url 'main:work_list' work_list.0.0.published_at.year %}" aria-label="すべての作品を見る"><span>MORE</span></a></div>
+        </section>
+      </div>
+    </div>
+  </main>
+{% endblock main %}
+
+{% block script %}
+{% compress js inline %}
+<script>
+  // 変数と式
+  var carousel = document.getElementsByClassName("index-news-carousel")[0];
+  var item_container = document.getElementsByClassName("index-news-item-container")[0];
+  var items = document.getElementsByClassName("index-news-item");
+  var btns = document.getElementsByClassName("index-news-arrow");
+  var carousel_style = document.defaultView.getComputedStyle(carousel);
+  var base = parseFloat(carousel_style.getPropertyValue("width"), 10) / 59;
+  var item_idx = 1;
+  // 移動
+  function set_item_container_transition() {
+    var tmp = base*20;
+    var card_pos = (item_idx-1) * tmp;
+    item_container.style.transform = "translateX(-" + String(card_pos) + "px)";
+  }
+  // リサイズ
+  function set_item_width() {
+    if(document.body.clientWidth > 750) {
+      base = parseFloat(carousel_style.getPropertyValue("width"), 10) / 59;
+      Array.prototype.forEach.call(items, function(item) {
+        item.style.width = String(base*19) + "px";
+        item.style.marginRight = String(base) + "px";
+        set_item_container_transition();
+      });
+    } else {
+      Array.prototype.forEach.call(items, function(item) {
+        item.style.width = "";
+        item.style.marginRight = "";
+        item_container.style.transform = "translateX(0)";
+      });
+    }
+  };
+  set_item_width();
+  window.onresize = function(){
+    colorChange();
+    set_item_width();
+  };
+  // cssの変更
+  function set_css(btn, val) {
+    if(val==0) {
+      btn.style.pointerEvents = "none";
+      btn.style.opacity = "0";
+    } else {
+      btn.style.pointerEvents = "auto";
+      btn.style.opacity = "1";
+    }
+  }
+  // ボタン
+  function set_btn_visibility() {
+    if(items.length<=3) {
+      set_css(btns[0], 0);
+      set_css(btns[1], 0);
+    } else {
+      if(item_idx<=1) {
+        set_css(btns[0], 0);
+        set_css(btns[1], 1);
+      } else if(items.length-2<=item_idx) {
+        set_css(btns[0], 1);
+        set_css(btns[1], 0);
+      } else {
+        set_css(btns[0], 1);
+        set_css(btns[1], 1);
+      }
+    }
+  };
+  set_btn_visibility();
+  // イベント処理
+  Array.prototype.forEach.call(btns, function (btn, idx) {
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      if(idx==0) {
+        item_idx -= 1;
+      } else {
+        item_idx += 1;
+      }
+      set_item_width();
+      set_btn_visibility();
+    });
+  });
+  // Indexの画像が動かない問題回避
+  var about_image = document.getElementsByClassName("index-about-image-container")[0];
+  about_image.style.animation = "none";
+  setTimeout(function(){about_image.style.animation = ""}, 1000);
+</script>
+{% endcompress %}
+{% endblock script %}

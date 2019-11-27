@@ -1,0 +1,11 @@
+/postgres/
+/static/
+/media/
+/nginx/ssl-certs/
+CACHE/
+.vscode/
+__pycache__/
+*.py[cod]
+*.log
+*.css.map
+.DS_Store

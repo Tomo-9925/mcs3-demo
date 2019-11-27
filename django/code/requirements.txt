@@ -1,0 +1,18 @@
+# バージョン情報削除済み
+Django  # 本体
+uwsgi  # Nginxとの連携
+psycopg2-binary  # PostgresSQLとの連携
+python-memcached  # memcachedとの連携
+django-debug-toolbar  # 製作支援ツール
+libsass  # SASSの処理
+django-sass-processor  # SASS機能追加
+Markdown  # Markdownの処理
+django-markdownx  # Markdown機能追加
+bleach  # XSS対策
+django-bleach  # XSS対策
+django-axes  # ログインページのセキュリティ強化
+pillow  # 画像編集ライブラリ
+django-imagekit  # アップロードした画像の圧縮
+django-cleanup  # アップロードした画像の整理
+django-htmlmin  # HTMLの圧縮
+django-compressor  # JavaScript, CSSの圧縮

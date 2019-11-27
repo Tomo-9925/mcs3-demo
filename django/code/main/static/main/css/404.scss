@@ -1,0 +1,47 @@
+/*
+  import
+*/
+
+/* Base files. */
+@import "base/variables";
+@import "base/animations";
+@import "base/functions";
+
+/* Modules */
+@import "modules/hero";
+
+/*
+  404
+*/
+
+.page-404-top {
+  overflow: hidden;
+  h2 {
+    font-size: 2rem;
+  }
+  p {
+    margin-bottom: 1rem;
+  }
+  @include tablet {
+    @include flex-row;
+    flex-direction: row-reverse;
+  }
+}
+
+.page-404-medican-outer {
+  text-align: center;
+  img {
+    transform: scale(0.85);
+    transition: 0.3s ease-in-out;
+    &:hover {
+      transform: rotate(7.5deg) scale(0.9);
+    }
+  }
+  p {
+    margin-top: 1rem;
+  }
+  @include tablet {
+    margin-left: 1.5rem;
+    width: 40%;
+  }
+}

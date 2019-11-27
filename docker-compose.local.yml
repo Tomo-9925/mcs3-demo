@@ -1,0 +1,88 @@
+# production用のファイルは非公開
+# バージョン情報削除済み
+version: '3'
+
+
+networks:
+  main:  # キャンパス祭では別のネットワークも使用
+    external: true
+
+
+services:
+  nginx:
+    image: steveltn/https-portal
+    container_name: mcs3-nginx
+    depends_on:
+      - django
+    ports:
+      - '80:80'
+      - '443:443'
+    links:
+      - django:django
+    networks:
+      - main
+    volumes:
+      - ./nginx/ssl-certs:/var/lib/https-portal
+      - ./nginx/conf/mcs-kutc.com.ssl.conf.erb:/var/lib/nginx-conf/mcs-kutc.com.ssl.conf.erb  # nginxの設定ファイル
+        # - ./nginx/conf/cf2019.mcs-kutc.com.ssl.conf.erb:/var/lib/nginx-conf/cf2019.mcs-kutc.com.ssl.conf.erb  # キャンパス祭特設アプリの設定
+      - ./nginx/conf/mime.types:/etc/nginx/mime.types  # コンテンツ形式の指定
+      - ./static:/static  # 静的ファイル
+      - ./media:/media  # ユーザがアップロードしたファイル
+      - ./nginx/WWW/hoge:/hoge  # 静的ページ
+    environment:
+      STAGE: local
+      DOMAINS: 'mcs-kutc.com, www.mcs-kutc.com => https://mcs-kutc.com'  # www付きのURLはリダイレクト
+
+  django:
+    build: ./django
+    container_name: mcs3-django
+    expose:
+      - '8000'
+    links:
+      - postgres:postgres
+      - memcached:memcached
+    networks:
+      - main
+    depends_on:
+      - postgres
+      - memcached
+    command: uwsgi --socket :8000 --module mcs3.wsgi
+    volumes:
+      - ./django/code:/code  # djangoのコード
+      - ./static:/static
+      - ./media:/media
+    environment:
+      TZ: Asia/Tokyo
+
+  memcached:
+    image: memcached
+    container_name: mcs3-memcached
+    restart: always
+    expose:
+      - '11211'
+    networks:
+      - main
+    entrypoint:
+     - memcached
+     - -m 64
+
+  # productionでは使用していません．
+  postgres:
+    image: postgres
+    container_name: mcs3-postgres
+    restart: always
+    expose:
+      - '5432'
+    # CUIでいけたら玄人．私は素人．
+    # ports:
+    #   - '5432:5432'
+    networks:
+      - main
+    volumes:
+      - ./postgres/data:/var/lib/postgresql/data
+      - ./postgres/initdb:/docker-entrypoint-initdb.d  # 本番環境からデータをインポート
+    environment:
+      POSTGRES_DB: hoge
+      POSTGRES_USER: hoge
+      POSTGRES_PASSWORD: hoge
+      TZ: Asia/Tokyo

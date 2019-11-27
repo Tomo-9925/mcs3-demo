@@ -1,0 +1,80 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% load sass_tags %}
+{% load compress %}
+
+{% block head %}
+  {% compress css inline %}
+    <link rel="stylesheet" href="{% sass_src "main/css/news-list.scss" %}"/>
+  {% endcompress %}
+  <link rel="alternate" type="application/rss+xml" href="https://{{ request.get_host }}{% url 'main:news_feed' %}" title="Media Creative Supporter - NEWS" />
+{% endblock head %}
+
+{% block main %}
+  <main>
+    <div class="container">
+      <header>
+        <div class="global-page-title">
+          <h1 class="global-page-title-name">NEWS</h1>
+          <div class="global-page-title-description">最新情報</div>
+        </div>
+      </header>
+      <div class="news-contents-outer">
+        {% for news in news_list %}
+          <div class="news-contents-item">
+            <a href="{% url 'main:news_detail' news.pk %}" aria-label="news.title">
+              <dl>
+                <dt>
+                  {% if news.image %}
+                    <picture>
+                      <source srcset="{% static 'main/img/logo_large.png' %} 2x" data-srcset="{{ news.image_medium.url }} 1x, {{ news.image_large.url }} 2x" media="(min-width: 750px)"/>
+                      <source srcset="{% static 'main/img/logo_large.png' %} 2x" data-srcset="{{ news.image_medium.url }} 2x"/>
+                      <img class="lazyload" data-src="{{ news.image_small.url }}" alt="{{ title }}"/>
+                    </picture>
+                  {% else %}
+                    <source srcset="{% static 'main/img/logo_large.png' %} 2x"/>
+                    <img src="{% static 'main/img/logo.png' %}" alt="{{ news.title }}"/>
+                  {% endif %}
+                </dt>
+                <dd>
+                  <time datetime="{{ news.published_at|date:"Y-m-d" }}">{{ news.published_at|date:"Y.n.j" }}</time>
+                  <h2>{{ news.title }}</h2>
+                  <p>{{ news.description }}</p>
+                </dd>
+              </dl>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+      {% if paginator.num_pages != 1 %}
+        <nav class="global-pagination">
+          <ul>
+            <li class="global-pagination-btn {{ page_obj.has_previous|yesno:',disabled' }}">
+              {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}"><img src="{% static 'main/img/news_new.svg' %}" alt="NEW"></a>
+              {% else %}
+                <img src="{% static 'main/img/news_new.svg' %}" alt="NEW">
+              {% endif %}
+            </li>
+            {% for num in range %}
+              <li>
+                {% if page_obj.number == num %}
+                  <span>{{ num }}</span>
+                {% else %}
+                  <a href="?page={{ num }}"><span>{{ num }}</span></a>
+                {% endif %}
+              </li>
+            {% endfor %}
+            <li class="global-pagination-btn {{ page_obj.has_next|yesno:',disabled' }}">
+              {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}"><img src="{% static 'main/img/news_old.svg' %}" alt="OLD"></a>
+              {% else %}
+                <img src="{% static 'main/img/news_new.svg' %}" alt="NEW">
+              {% endif %}
+            </li>
+          </ul>
+        </nav>
+      {% endif %}
+    </div>
+  </main>
+{% endblock main %}

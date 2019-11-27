@@ -1,0 +1,31 @@
+/*
+  Footer
+*/
+
+.global-footer {
+  @include link-normalize($white);
+  @include flash-animation;
+  color: $white;
+  font-weight: bold;
+  padding: 3rem 0;
+  background-color: $black;
+  text-align: center;
+  ul {
+    @include flex-row;
+    margin: 0 auto;
+    list-style-type: none;
+    width: 22.5rem;
+    justify-content: space-between;
+    font-size: 3rem;
+  }
+  li {
+    margin: 0;
+  }
+  small {
+    letter-spacing: 0.15em;
+  }
+}
+
+.global-footer-icon-wrapper {
+  margin-bottom: 1.5rem;
+}

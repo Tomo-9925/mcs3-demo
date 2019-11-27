@@ -1,0 +1,44 @@
+{% load static %}
+{% load bleach_tags %}
+{% load spaceless_json %}
+
+<script type="application/ld+json">{% spaceless_json %}
+{
+  "@context": "https://schema.org",
+  "@type": "NewsArticle",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://{{ request.get_host }}{{ request.path }}"
+  },
+  "headline": "{{ title|bleach|escapejs }}",
+  {% if image %}
+  "image": ["https://{{ request.get_host }}{{ image }}"],
+  {% else %}
+  "image": ["https://{{ request.get_host }}{% static 'main/img/logo_large.png' %}"],
+  {% endif %}
+  "datePublished": "{{ news.published_at.isoformat }}",
+  "dateModified": "{{ news.updated_at.isoformat }}",
+  "author": {
+    "@type": "Organization",
+    "name": "Media Creative Supporter (MCS)"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Media Creative Supporter (MCS)",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://{{ request.get_host }}{% static 'main/img/logo_json.png' %}"
+    },
+    "url": "https://{{ request.get_host }}/",
+    "sameAs": [
+      "https://twitter.com/mcs_kutc/",
+      "https://www.facebook.com/mcs.kutc/",
+      "https://www.youtube.com/mcstube/",
+      "http://kaiserstv.hatenablog.com/",
+      "https://twitter.com/KAISERSTV",
+      "https://www.youtube.com/kaisers_tv/"
+    ]
+  },
+  "description": "{{ description|bleach|escapejs }}"
+}
+{% endspaceless_json %}</script>

@@ -1,0 +1,237 @@
+// Buttons
+//––––––––––––––––––––––––––––––––––––––––––––––––––
+
+.button,
+button {
+  display: inline-block;
+  height: 38px;
+  padding: 0 30px;
+  color: $secondary-color;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 38px;
+  letter-spacing: .1rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  background-color: transparent;
+  border-radius: $global-radius;
+  border: 1px solid $border-color;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+input {
+  &[type="submit"],
+  &[type="reset"],
+  &[type="button"] {
+    display: inline-block;
+    height: 38px;
+    padding: 0 30px;
+    color: $secondary-color;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 38px;
+    letter-spacing: .1rem;
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+    background-color: transparent;
+    border-radius: $global-radius;
+    border: 1px solid $border-color;
+    cursor: pointer;
+    box-sizing: border-box;
+  }
+}
+
+.button:hover,
+button:hover {
+  color: $dark-grey;
+  border-color: lighten($dark-grey, 33.3%);
+  outline: 0;
+}
+
+input {
+  &[type="submit"]:hover,
+  &[type="reset"]:hover,
+  &[type="button"]:hover {
+    color: $dark-grey;
+    border-color: lighten($dark-grey, 33.3%);
+    outline: 0;
+  }
+}
+
+.button:focus,
+button:focus {
+  color: $dark-grey;
+  border-color: lighten($dark-grey, 33.3%);
+  outline: 0;
+}
+
+input {
+  &[type="submit"]:focus,
+  &[type="reset"]:focus,
+  &[type="button"]:focus {
+    color: $dark-grey;
+    border-color: lighten($dark-grey, 33.3%);
+    outline: 0;
+  }
+}
+
+.button.button-primary,
+button.button-primary {
+  color: #fff;
+  background-color: $primary-color;
+  border-color: $primary-color;
+}
+
+input {
+  &[type="submit"].button-primary,
+  &[type="reset"].button-primary,
+  &[type="button"].button-primary {
+    color: #fff;
+    background-color: $primary-color;
+    border-color: $primary-color;
+  }
+}
+
+.button.button-primary:hover,
+button.button-primary:hover {
+  color: #fff;
+  background-color: $link-color;
+  border-color: $link-color;
+}
+
+input {
+  &[type="submit"].button-primary:hover,
+  &[type="reset"].button-primary:hover,
+  &[type="button"].button-primary:hover {
+    color: #fff;
+    background-color: $link-color;
+    border-color: $link-color;
+  }
+}
+
+.button.button-primary:focus,
+button.button-primary:focus {
+  color: #fff;
+  background-color: $link-color;
+  border-color: $link-color;
+}
+
+input {
+  &[type="submit"].button-primary:focus,
+  &[type="reset"].button-primary:focus,
+  &[type="button"].button-primary:focus {
+    color: #fff;
+    background-color: $link-color;
+    border-color: $link-color;
+  }
+  &[type="email"],
+  &[type="number"],
+  &[type="search"],
+  &[type="text"],
+  &[type="tel"],
+  &[type="url"],
+  &[type="password"] {
+    height: 38px;
+    padding: 6px 10px; // The 6px vertically centers text on FF, ignored by Webkit
+    background-color: #fff;
+    border: 1px solid lighten($border-color, 8.8%);
+    border-radius: $global-radius;
+    box-shadow: none;
+    box-sizing: border-box;
+  }
+}
+
+/* btn */
+
+.global-btn {
+  @include link-normalize($white);
+  margin-top: 3rem;
+  width: 100%;
+  a {
+    font-weight: bold;;
+    display: block;
+    padding: 1.25rem 0;
+    width: 100%;
+    background-color: $black;
+    text-align: center;
+    letter-spacing: 0.12em;
+    &:hover span {
+      animation: btn-hover1 0s ease-out 0s 1 alternate, btn-hover2 0.3s ease-out 0.1s 1 alternate;
+    }
+    @include tablet {
+      margin: 0 auto;
+      padding: 0.75rem 0;
+      width: 27.5rem;
+    }
+  }
+  span {
+    display: inline-block;
+  }
+}
+
+/*
+  Back to top
+*/
+
+.global-footer-btt-btn {
+  @include link-normalize($black);
+  margin: 4rem 0;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  a {
+    display: block;
+    margin: 0 auto;
+    width: 17rem;
+  }
+  span {
+    display: block;
+    position: relative;
+    padding-top: 2rem;
+    &::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      content: "\f106";
+      font-family: "Font Awesome 5 Free";
+    }
+  }
+  @include tablet {
+    display: none;
+  }
+}
+
+/*
+  Back to index
+*/
+
+.news-bti-btn {
+  margin: 2rem 0 10rem 0;
+  @include tablet {
+    margin-bottom: 14rem;
+  }
+  a {
+    @include tablet {
+      width: 35rem;
+    }
+  }
+  span {
+    padding-left: 2rem;
+    position: relative;
+    &::before {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      margin-top: -0.75em;
+      content: "\f104";
+      font-family: "Font Awesome 5 Free";
+    }
+  }
+}

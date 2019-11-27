@@ -1,0 +1,46 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% load sass_tags %}
+{% load compress %}
+
+{% block head %}
+{% compress css inline %}
+  <link rel="stylesheet" href="{% sass_src "main/css/404.scss" %}"/>
+  <link rel="stylesheet" href="{% sass_src "main/css/news-detail.scss" %}"/>
+{% endcompress %}
+{% endblock head %}
+
+{% block footer_button %}
+{% endblock footer_button %}
+
+{% block main %}
+  <main>
+    <div class="container">
+      <header class="global-page-title">
+        <h1 class="global-page-title-name">404</h1>
+        <div class="global-page-title-description">Not Found</div>
+      </header>
+      <div class="page-404 news-article">
+        <div class="page-404-top">
+          <div class="page-404-medican-outer">
+            <img src="{% static 'main/img/medican_suprised.svg' %}" alt="めでぃカンさん" width="100%"/>
+          </div>
+          <article>
+            <h2>{{ title }}</h2>
+            <p>サイト更新などによってURLが変更になったか、URLが正しく入力されていない可能性があります。</p>
+          </article>
+        </div>
+        <p class="page-404-suggest">
+          MCS公式キャラクターの<strong>めでぃカンさん</strong>はポスターやチラシ、番組のオープニングなどで登場することがあります。この機会に探してみませんか？
+        </p>
+      </div>
+    </div>
+    <div class="global-btn news-bti-btn">
+      <div class="container">
+        <a href="{% url 'main:index' %}" aria-label="ホームページに戻る">
+          <span>GO TO HOMEPAGE</span>
+        </a>
+      </div>
+    </div>
+  </main>
+{% endblock main %}

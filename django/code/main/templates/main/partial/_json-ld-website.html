@@ -1,0 +1,44 @@
+{% load static %}
+{% load bleach_tags %}
+{% load spaceless_json %}
+
+<script type="application/ld+json">{% spaceless_json %}
+{
+  "@context": "http://schema.org",
+  "@type": "WebSite",
+  "url": "https://{{ request.get_host }}{{ request.path }}",
+  {% if title %}
+  "name": "{{ title|bleach|escapejs }} | Media Creative Supporter (MCS)",
+  {% else %}
+  "name": "Media Creative Supporter (MCS) 公式サイト | 関西大学 高槻キャンパス 総合情報学部 公認 映像ボランティア団体",
+  {% endif %}
+  {% if description %}
+  "description": "{{ description|bleach|escapejs }}",
+  {% else %}
+  "description": "Media Creative Supporter(MCS)は、関西大学高槻キャンパス総合情報学部にて活動しています。総合情報学部におけるコンテンツの制作サポートから創造・自己発信までできるスタッフの集合体を目指し、日々活動しているボランティア団体です。",
+  {% endif %}
+  {% if image %}
+  "image": ["https://{{ request.get_host }}{{ image }}"],
+  {% else %}
+  "image": ["https://{{ request.get_host }}{% static 'main/img/logo_large.png' %}"],
+  {% endif %}
+  "author": {
+    "@type": "Organization",
+    "name": "Media Creative Supporter (MCS)"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Media Creative Supporter (MCS)",
+    "logo": "https://{{ request.get_host }}{% static 'main/img/logo.png' %}",
+    "url": "https://{{ request.get_host }}/",
+    "sameAs": [
+      "https://twitter.com/mcs_kutc/",
+      "https://www.facebook.com/mcs.kutc/",
+      "https://www.youtube.com/mcstube/",
+      "http://kaiserstv.hatenablog.com/",
+      "https://twitter.com/KAISERSTV",
+      "https://www.youtube.com/kaisers_tv/"
+    ]
+  }
+}
+{% endspaceless_json %}</script>

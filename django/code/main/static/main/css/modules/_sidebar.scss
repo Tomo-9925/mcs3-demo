@@ -1,0 +1,69 @@
+.global-sidebar {
+  @include flash-animation;
+  display: none;
+  @include tablet {
+    display: block;
+    position: fixed;
+    z-index: 3;
+    right: 2rem;
+    height: 100%;
+    font-size: 1.75rem;
+    font-weight: bold;
+    letter-spacing: 0.12em;
+    ul {
+      @include flex-column;
+      margin: 0;
+      height: 100%;
+      list-style-type: none;
+      justify-content: center;
+    }
+    li {
+      margin: 1.5rem 0;
+    }
+    a {
+      @include flex-column;
+    }
+    .vline {
+      margin-left: -1px;
+      width: 0.01px;
+      height: 3.5rem;
+    }
+    span {
+      margin: 0;
+      padding-top: 3rem;
+      position: relative;
+      writing-mode: vertical-rl;
+      -ms-writing-mode: tb-rl;
+      text-align: right;
+      &::before{
+        position: absolute;
+        top: 0;
+        left: 0;
+        content: "\f106";
+        font-family: "Font Awesome 5 Free";
+      }
+    }
+  };
+}
+
+
+@media all and (-ms-high-contrast:none){
+  *::-ms-backdrop, .global-sidebar span::before {
+    content: "\f104";
+    margin-left: -0.75rem;
+  }
+}
+
+.white-chara {
+  @include link-normalize($white);
+  .vline {
+    border-right: 2px solid $white;
+  }
+}
+
+.black-chara {
+  @include link-normalize($black);
+  .vline {
+    border-right: 2px solid $black;
+  }
+}

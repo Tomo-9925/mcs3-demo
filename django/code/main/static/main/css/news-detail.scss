@@ -1,0 +1,59 @@
+/*
+  import
+*/
+
+/* Base files. */
+@import "base/variables";
+@import "base/animations";
+@import "base/functions";
+
+/*
+  News Detail
+*/
+
+.news-article {
+  margin: 2.5rem 1rem;
+  @include tablet {
+    margin: 6rem 4rem;
+  }
+  time {
+    margin: 0;
+    font-weight: bold;
+    font-size: 1.75rem;
+    line-height: 2;
+    @include tablet {
+      font-size: 2.5rem;
+    }
+  }
+  h1 {
+    font-size: 1.75rem;
+    letter-spacing: 0.1em;
+    line-height: 2;
+    @include tablet {
+      font-size: 2.5rem;
+    }
+  }
+  img {
+    width: 100%;
+    height: auto;
+    margin: 0 0 2rem 0;
+  }
+  > * {
+    margin-bottom: 2rem;
+  }
+  h2 {
+    margin: 4rem 0 2.5rem 0;
+    font-size: 1.75rem;
+  }
+  h3 {
+    margin: 3.5rem 0 2.5rem 0;
+    font-size: 1.6rem
+  }
+  h4, h5, h6 {
+    margin: 3rem 0 2.5rem 0;
+    font-size: 1.5rem;
+  }
+  table {
+    width: 100%;
+  }
+}

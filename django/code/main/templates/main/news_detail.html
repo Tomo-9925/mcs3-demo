@@ -1,0 +1,44 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% load bleach_tags %}
+{% load spaceless_json %}
+{% load sass_tags %}
+{% load compress %}
+
+{% block head %}
+  {% compress css inline %}
+    <link rel="stylesheet" href="{% sass_src "main/css/news-detail.scss" %}"/>
+  {% endcompress %}
+  <link rel="amphtml" href="https://{{ request.get_host }}{% url 'main:news_detail_amp' news.permalink %}">
+{% endblock head %}
+
+{% block json %}
+  {% include 'main/partial/_json-ld-news.html' %}
+{% endblock json %}
+
+{% block footer_button %}
+  {% include 'main/partial/_back-to-index.html' %}
+{% endblock footer_button %}
+
+{% block main %}
+  <main>
+    <div class="container">
+      <header class="global-page-title">
+        <div class="global-page-title-name">NEWS</div>
+        <div class="global-page-title-description">最新情報</div>
+      </header>
+      <article class="news-article">
+        <time datetime="{{ news.published_at|date:"Y-m-d" }}">{{ news.published_at|date:"Y.n.j" }}</time>
+        <h1>{{ news.title }}</h1>
+        {% if news.image %}
+          <picture>
+            <source srcset="{{ news.image_large.url }} 1x, {{ news.image.url }} 2x" media="(min-width: 750px)"/>
+            <source srcset="{{ news.image_large.url }} 2x"/>
+            <img src="{{ news.image_medium.url }}" alt="{{ news.title }}"/>
+          </picture>
+        {% endif %}
+        {{ news.formatted_markdown | bleach }}
+      </article>
+    </div>
+  </main>
+{% endblock main %}

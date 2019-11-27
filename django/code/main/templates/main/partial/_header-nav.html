@@ -1,0 +1,47 @@
+{% load static %}
+
+<nav class="global-header-nav">
+  <div class="container">
+    <ul>
+      {% if '/' == request.path %}{# indexのとき #}
+        <li class="global-header-nav-logo">
+          <img src="{% static 'main/img/logo_vertical.svg' %}" alt="Media Creative Supporter"/>
+        </li>
+        <li>
+          <a href="#about" aria-label="ABOUT"><span class="underline">ABOUT</span></a>
+        </li>
+        <li>
+          <a href="#news" aria-label="NEWS"><span class="underline">NEWS</span></a>
+        </li>
+        <li>
+          <a href="#works" aria-label="WORKS"><span class="underline">WORKS</span></a>
+        </li>
+      {% else %}
+        <li class="global-header-nav-logo">
+          <a href="{% url 'main:index' %}" aria-label="Media Creative Supporter">
+            <picture>
+              <source srcset="{% static 'main/img/logo_horizontal.svg' %}" media="(min-width: 750px)"/>
+              <img src="{% static 'main/img/logo_vertical.svg' %}" alt="Media Creative Supporter"/>
+            </picture>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'main:index' %}#about" aria-label="ABOUT"><span class="underline">ABOUT</span></a>
+        </li>
+        <li>
+          <a href="{% url 'main:news_list' %}" aria-label="NEWS"><span class="underline">NEWS</span></a>
+        </li>
+        <li>
+          <a href="{% url 'main:work_redirect' %}" aria-label="WORKS"><span class="underline">WORKS</span></a>
+        </li>
+      {% endif %}
+      <li class="global-header-nav-hamburger">
+        <button aria-label="メニュー" class="hamburger hamburger--spin" type="button">
+          <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+          </span>
+        </button>
+      </li>
+    </ul>
+  </div>
+</nav>
